@@ -1,5 +1,6 @@
-require("dotenv/config")
 require("express-async-errors")
+require("dotenv/config")
+
 const uploadConfig = require("./configs/upload")
 
 const cors = require("cors")
@@ -9,14 +10,15 @@ const routes = require("./routes")
 const AppError = require("./utils/AppError")
 const sqlConnection = require("./database")
 
-sqlConnection()
-
 const app = express()
+
 app.use(cors())
 app.use(express.json())
 app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER))
 
 app.use(routes)
+
+sqlConnection()
 
 app.use((error, req, res, next) => {
   if (error instanceof AppError) {

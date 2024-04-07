@@ -1,8 +1,8 @@
 const knex = require("../database/knex")
 const AppError = require("../utils/AppError")
 
-const authConfig = require("../configs/auth")
 const { compare } = require("bcryptjs")
+const authConfig = require("../configs/auth")
 const { sign } = require("jsonwebtoken")
 
 class SessionController {
@@ -12,7 +12,7 @@ class SessionController {
     const user = await knex("users").where({ email }).first()
 
     if (!user) {
-      throw new AppError("Email e/ou senha inválido!", 401)
+      throw new AppError("Email e/ou senha incorreto!", 401)
     }
 
     const passwordMatched = await compare(password, user.password)
@@ -30,7 +30,7 @@ class SessionController {
 
     delete user.password
 
-    return res.status(201).json({ user, token })
+    return res.status(200).json({ user, token })
   }
 }
 

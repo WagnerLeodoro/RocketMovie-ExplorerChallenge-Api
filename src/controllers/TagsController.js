@@ -1,9 +1,9 @@
-const knex = require('../database/knex')
+const knex = require("../database/knex")
 
 class TagsController {
   async index(req, res) {
-    const { id } = req.user
-    const tags = await knex('movie_tags').where({ user_id: id })
+    const user_id = req.user.id
+    const tags = await knex("movie_tags").where({ user_id })
 
     const tagsGroupedByMovie = tags.reduce((acc, tag) => {
       if (!acc[tag.movie_id]) {

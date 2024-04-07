@@ -18,7 +18,7 @@ userRouter.post("/", userController.create)
 userRouter.use(ensureAuthenticated)
 
 userRouter.get("/", userController.listUser)
-userRouter.put("/:id", userController.updateUser)
+userRouter.put("/", userController.updateUser)
 userRouter.patch(
   "/avatar",
   ensureAuthenticated,
